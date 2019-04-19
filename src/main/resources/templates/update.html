@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit employee</title>
+</head>
+<body>
+<h1>Edit employee</h1>
+<p>
+    <a th:href="@{/employees}">Employee list</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/edit-employee}" th:object="${employee}" method="post" style="display: flex">
+    <div>
+        <div>
+            <label>Mã nhân viên</label><br>
+            <p th:text="${employee.id}"></p>
+        </div>
+        <div>
+            <label>Chọn nhóm nhân viên</label><br>
+            <select th:field="*{groupEmployee}">
+                <option th:each="p : ${groupEmployees}" th:value="${p.id}" th:text="${p.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Họ tên</label><br>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Ngày sinh</label><br>
+            <p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday Error</p>
+            <input type="date" th:field="*{birthday}"/>
+        </div>
+        <div>
+            <label>Giới tính</label><br>
+            <input type="radio" th:field="*{genre}" name="gender" value="Nam">Nam<br>
+            <input type="radio" th:field="*{genre}" name="gender" value="Nữ">Nữ<br>
+        </div>
+    </div>
+    <div>
+        <div>
+            <label>Số điện thoại</label><br>
+            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">PhoneNumber Error</p>
+            <input type="text" th:field="*{phoneNumber}"/>
+        </div>
+        <div>
+            <label>Số CMND</label><br>
+            <p th:if="${#fields.hasErrors('identity')}" th:errors="*{identity}">Identity Error</p>
+            <input type="text" th:field="*{identity}"/>
+        </div>
+        <div>
+            <label>Email</label><br>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+            <input type="text" th:field="*{email}"/>
+        </div>
+        <div>
+            <label>Địa chỉ</label><br>
+            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</p>
+            <textarea rows="4" cols="50" th:field="*{address}"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Sửa"/>
+        </div>
+    </div>
+</form>
+</body>
+</html>
